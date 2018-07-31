@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeesite.modules.pmm.dao.PmmFileDao">
+	
+
+	<select id="findList" resultType="PmmFile">
+		SELECT ${sqlMap.column.toSql()},c.pmc081
+		FROM ${sqlMap.table.toSql()},pmc_file c
+		<where>
+			${sqlMap.where.toSql()} and  a.pmm09=c.pmc01
+			<if test="pmc081!=null and pmc081!=''">
+				and c.pmc081 LIKE CONCAT(CONCAT('%', #{pmc081}), '%');
+			</if>
+		</where>
+		ORDER BY ${sqlMap.order.toSql()}
+	</select>
+	
+</mapper>

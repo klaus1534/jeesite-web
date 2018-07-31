@@ -1,0 +1,213 @@
+<% layout('/layouts/default.html', {title: '采购单单头管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<!--<div class="box-header with-border">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text(pmmFile.isNewRecord ? '新增采购单单头' : '编辑采购单单头')}
+			</div>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			</div>
+		</div>-->
+
+			<div class="box-body">
+				<div class="form-unit">${text('采购订单')}</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required ">*</span> ${text('采购单号')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm01" maxlength="20" readonly="${!pmmFile.isNewRecord}" class="form-control required"/>-->
+								${pmmFile.pmm01}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('采购日期')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm04" readonly="${!pmmFile.isNewRecord}" class="form-control"/>-->
+								${pmmFile.pmm04}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('供应商')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmc081" maxlength="10"  readonly="${!pmmFile.isNewRecord}" class="form-control"/>-->
+								${pmmFile.pmc081}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('订单来源')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm909" maxlength="1" class="form-control"/>-->
+								${pmmFile.pmm909}
+							</div>
+						</div>
+					</div>
+					<!--<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('pmm06')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pmm06" maxlength="10" class="form-control"/>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('税别')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm21" maxlength="4" class="form-control"/>-->
+								${pmmFile.pmm21}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('币别')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm22" maxlength="4" class="form-control"/>-->
+								${pmmFile.pmm22}
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('付款方式')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm20" maxlength="10" class="form-control"/>-->
+								${pmmFile.pmm20}
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('采购员')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:input path="pmm12" maxlength="10" class="form-control"/>-->
+								${pmmFile.pmm12}
+							</div>
+						</div>
+					</div>
+					<!--<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('pmm07')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pmm07" maxlength="10" class="form-control"/>
+							</div>
+						</div>
+					</div>-->
+					<!--<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('pmm08')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pmm08" maxlength="20" class="form-control"/>
+							</div>
+						</div>
+					</div>-->
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('采购类型')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<!--<#form:select path="pmm02" dictType="pmc_status" blankOption="true" class="form-control" />-->
+								${pmmFile.pmm02}
+							</div>
+						</div>
+					</div>
+					<!--<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('pmm09')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pmm09" maxlength="10" class="form-control"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="form-group">
+							<label class="control-label col-sm-4" title="">
+								<span class="required hide">*</span> ${text('pmm10')}：<i class="fa icon-question hide"></i></label>
+							<div class="col-sm-8">
+								<#form:input path="pmm10" maxlength="10" class="form-control"/>
+							</div>
+						</div>
+					</div>-->
+				</div>
+
+
+				</div>
+
+
+		<div class="box-body">
+			<div class="form-unit">${text('采购明细')}</div>
+
+		</div>
+		<table id="dataGrid"></table>
+		<div id="dataGridPage"></div>
+			<div class="box-footer">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-10">
+						<!--<% if (hasPermi('pmm:pmmFile:edit')){ %>
+							<button type="submit" class="btn btn-sm btn-primary" id="btnSubmit"><i class="fa fa-check"></i> ${text('保 存')}</button>&nbsp;
+						<% } %>-->
+						<button type="button" class="btn btn-sm btn-default" id="btnCancel" onclick="js.closeCurrentTabPage()"><i class="fa fa-reply-all"></i> ${text('关 闭')}</button>
+					</div>
+				</div>
+			</div>
+
+
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+    searchForm: $("#searchForm"),
+    columnModel: [
+      	{header:'${text('序号')}', name:'pmn02', dateindex:'pmmFile.pmm02', width:150, align:"left"},
+		{header:'${text('料号')}', name:'pmn04', index:'a.pmn04', width:150, align:"left"},
+		{header:'${text('品名')}', name:'pmn041', index:'a.pmn041', width:150, align:"left"},
+/*{header:'${text('规格')}', name:'', index:'', width:150, align:"left"},  */
+
+        {header:'${text('单位')}', name:'pmn07', index:'a.pmn07', width:150, align:"left"},
+        {header:'${text('交货日期')}', name:'pmn33', index:'a.pmn33', width:150, align:"left"},
+		{header:'${text('数量')}', name:'pmn20', index:'a.pmn20', width:150, align:"left"},
+        {header:'${text('含税单价')}', name:'pmn31t', index:'a.pmn31t', width:150, align:"center"},
+        {header:'${text('含税总价')}', name:'pmn88t', index:'a.pmn88t', width:150, align:"left"},
+		/*{header:'${text('送货量')}', name:'', index:'a.', width:150, align:"left"},*/
+		{header:'${text('收货量')}', name:'pmn50', index:'a.pmn50', width:150, align:"left"},
+		{header:'${text('验退量')}', name:'pmn55', index:'a.pmn55', width:150, align:"left"},
+		{header:'${text('仓退量')}', name:'pmn59', index:'a.pmn59', width:150, align:"left"},
+		{header:'${text('未交量')}', name:'pmn59', index:'a.pmn59', width:150, align:"left"}
+    ],
+    // 加载成功后执行事件
+    ajaxSuccess: function(data){
+
+    }
+});
+</script>

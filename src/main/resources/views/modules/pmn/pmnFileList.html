@@ -1,0 +1,246 @@
+<% layout('/layouts/default.html', {title: '采购单单身管理', libs: ['dataGrid']}){ %>
+<div class="main-content">
+	<div class="box box-main">
+		<div class="box-header">
+			<div class="box-title">
+				<i class="fa fa-list-alt"></i> ${text('采购单单身管理')}
+			</div>
+			<div class="box-tools pull-right">
+				<a href="#" class="btn btn-default" id="btnSearch" title="${text('查询')}"><i class="fa fa-filter"></i> ${text('查询')}</a>
+				<% if(hasPermi('pmn:pmnFile:edit')){ %>
+					<a href="${ctx}/pmn/pmnFile/form" class="btn btn-default btnTool" title="${text('新增采购单单身')}"><i class="fa fa-plus"></i> ${text('新增')}</a>
+				<% } %>
+			</div>
+		</div>
+		<div class="box-body">
+			<#form:form id="searchForm" model="${pmnFile}" action="${ctx}/pmn/pmnFile/listData" method="post" class="form-inline hide"
+					data-page-no="${parameter.pageNo}" data-page-size="${parameter.pageSize}" data-order-by="${parameter.orderBy}">
+				<div class="form-group">
+					<label class="control-label">${text('采购单号')}：</label>
+					<div class="control-inline">
+						<#form:input path="pmn01" maxlength="20" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('remarks')}：</label>
+					<div class="control-inline">
+						<#form:input path="remarks" maxlength="255" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('del_flag')}：</label>
+					<div class="control-inline">
+						<#form:input path="delFlag" maxlength="1" class="form-control width-120"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">${text('状态')}：</label>
+					<div class="control-inline width-120">
+						<#form:select path="status" dictType="sys_search_status" blankOption="true" class="form-control"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-sm">${text('查询')}</button>
+					<button type="reset" class="btn btn-default btn-sm">${text('重置')}</button>
+				</div>
+			</#form:form>
+			<table id="dataGrid"></table>
+			<div id="dataGridPage"></div>
+		</div>
+	</div>
+</div>
+<% } %>
+<script>
+// 初始化DataGrid对象
+$('#dataGrid').dataGrid({
+	searchForm: $("#searchForm"),
+	columnModel: [
+		{header:'${text('采购单号')}', name:'pmn01', index:'a.pmn01', width:150, align:"left", frozen:true, formatter: function(val, obj, row, act){
+			return '<a href="${ctx}/pmn/pmnFile/form?pmn01='+row.pmn01+'" class="btnList" data-title="${text('编辑采购单单身')}">'+(val||row.id)+'</a>';
+		}},
+		{header:'${text('pmn011')}', name:'pmn011', index:'a.pmn011', width:150, align:"left"},
+		{header:'${text('序号')}', name:'pmn02', index:'a.pmn02', width:150, align:"center"},
+		{header:'${text('pmn03')}', name:'pmn03', index:'a.pmn03', width:150, align:"left"},
+		{header:'${text('料号')}', name:'pmn04', index:'a.pmn04', width:150, align:"left"},
+		{header:'${text('品名')}', name:'pmn041', index:'a.pmn041', width:150, align:"left"},
+		{header:'${text('pmn05')}', name:'pmn05', index:'a.pmn05', width:150, align:"left"},
+		{header:'${text('pmn06')}', name:'pmn06', index:'a.pmn06', width:150, align:"left"},
+		{header:'${text('单位')}', name:'pmn07', index:'a.pmn07', width:150, align:"left"},
+		{header:'${text('pmn08')}', name:'pmn08', index:'a.pmn08', width:150, align:"left"},
+		{header:'${text('pmn09')}', name:'pmn09', index:'a.pmn09', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn10')}', name:'pmn10', index:'a.pmn10', width:150, align:"left"},
+		{header:'${text('pmn11')}', name:'pmn11', index:'a.pmn11', width:150, align:"left"},
+		{header:'${text('pmn121')}', name:'pmn121', index:'a.pmn121', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn122')}', name:'pmn122', index:'a.pmn122', width:150, align:"left"},
+		{header:'${text('pmn123')}', name:'pmn123', index:'a.pmn123', width:150, align:"left"},
+		{header:'${text('pmn13')}', name:'pmn13', index:'a.pmn13', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn14')}', name:'pmn14', index:'a.pmn14', width:150, align:"left"},
+		{header:'${text('pmn15')}', name:'pmn15', index:'a.pmn15', width:150, align:"left"},
+		{header:'${text('pmn16')}', name:'pmn16', index:'a.pmn16', width:150, align:"left"},
+		{header:'${text('pmn18')}', name:'pmn18', index:'a.pmn18', width:150, align:"left"},
+		{header:'${text('数量')}', name:'pmn20', index:'a.pmn20', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn23')}', name:'pmn23', index:'a.pmn23', width:150, align:"left"},
+		{header:'${text('pmn24')}', name:'pmn24', index:'a.pmn24', width:150, align:"left"},
+		{header:'${text('pmn25')}', name:'pmn25', index:'a.pmn25', width:150, align:"center"},
+		{header:'${text('pmn30')}', name:'pmn30', index:'a.pmn30', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn31')}', name:'pmn31', index:'a.pmn31', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('含税单价')}', name:'pmn31t', index:'a.pmn31t', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn32')}', name:'pmn32', index:'a.pmn32', width:150, align:"center"},
+		{header:'${text('交货日期')}', name:'pmn33', index:'a.pmn33', width:150, align:"center"},
+		{header:'${text('pmn34')}', name:'pmn34', index:'a.pmn34', width:150, align:"center"},
+		{header:'${text('pmn35')}', name:'pmn35', index:'a.pmn35', width:150, align:"center"},
+		{header:'${text('pmn36')}', name:'pmn36', index:'a.pmn36', width:150, align:"center"},
+		{header:'${text('pmn37')}', name:'pmn37', index:'a.pmn37', width:150, align:"center"},
+		{header:'${text('pmn38')}', name:'pmn38', index:'a.pmn38', width:150, align:"left"},
+		{header:'${text('pmn40')}', name:'pmn40', index:'a.pmn40', width:150, align:"left"},
+		{header:'${text('pmn41')}', name:'pmn41', index:'a.pmn41', width:150, align:"left"},
+		{header:'${text('pmn42')}', name:'pmn42', index:'a.pmn42', width:150, align:"left"},
+		{header:'${text('pmn43')}', name:'pmn43', index:'a.pmn43', width:150, align:"center"},
+		{header:'${text('pmn431')}', name:'pmn431', index:'a.pmn431', width:150, align:"center"},
+		{header:'${text('pmn44')}', name:'pmn44', index:'a.pmn44', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn45')}', name:'pmn45', index:'a.pmn45', width:150, align:"center"},
+		{header:'${text('pmn46')}', name:'pmn46', index:'a.pmn46', width:150, align:"center"},
+		{header:'${text('收货量')}', name:'pmn50', index:'a.pmn50', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn51')}', name:'pmn51', index:'a.pmn51', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn52')}', name:'pmn52', index:'a.pmn52', width:150, align:"left"},
+		{header:'${text('pmn53')}', name:'pmn53', index:'a.pmn53', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn54')}', name:'pmn54', index:'a.pmn54', width:150, align:"left"},
+		{header:'${text('验退量')}', name:'pmn55', index:'a.pmn55', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn56')}', name:'pmn56', index:'a.pmn56', width:150, align:"left"},
+		{header:'${text('pmn57')}', name:'pmn57', index:'a.pmn57', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn58')}', name:'pmn58', index:'a.pmn58', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('仓退量')}', name:'pmn59', index:'a.pmn59', width:150, align:"left"},
+		{header:'${text('pmn60')}', name:'pmn60', index:'a.pmn60', width:150, align:"center"},
+		{header:'${text('pmn61')}', name:'pmn61', index:'a.pmn61', width:150, align:"left"},
+		{header:'${text('pmn62')}', name:'pmn62', index:'a.pmn62', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn63')}', name:'pmn63', index:'a.pmn63', width:150, align:"left"},
+		{header:'${text('pmn64')}', name:'pmn64', index:'a.pmn64', width:150, align:"left"},
+		{header:'${text('pmn65')}', name:'pmn65', index:'a.pmn65', width:150, align:"left"},
+		{header:'${text('pmn66')}', name:'pmn66', index:'a.pmn66', width:150, align:"left"},
+		{header:'${text('pmn67')}', name:'pmn67', index:'a.pmn67', width:150, align:"left"},
+		{header:'${text('pmn68')}', name:'pmn68', index:'a.pmn68', width:150, align:"left"},
+		{header:'${text('pmn69')}', name:'pmn69', index:'a.pmn69', width:150, align:"center"},
+		{header:'${text('pmn70')}', name:'pmn70', index:'a.pmn70', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn71')}', name:'pmn71', index:'a.pmn71', width:150, align:"left"},
+		{header:'${text('pmn80')}', name:'pmn80', index:'a.pmn80', width:150, align:"left"},
+		{header:'${text('pmn81')}', name:'pmn81', index:'a.pmn81', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn82')}', name:'pmn82', index:'a.pmn82', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn83')}', name:'pmn83', index:'a.pmn83', width:150, align:"left"},
+		{header:'${text('pmn84')}', name:'pmn84', index:'a.pmn84', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn85')}', name:'pmn85', index:'a.pmn85', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn86')}', name:'pmn86', index:'a.pmn86', width:150, align:"left"},
+		{header:'${text('pmn87')}', name:'pmn87', index:'a.pmn87', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn88')}', name:'pmn88', index:'a.pmn88', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('含税总价')}', name:'pmn88t', index:'a.pmn88t', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn930')}', name:'pmn930', index:'a.pmn930', width:150, align:"left"},
+		{header:'${text('pmn401')}', name:'pmn401', index:'a.pmn401', width:150, align:"left"},
+		{header:'${text('pmn90')}', name:'pmn90', index:'a.pmn90', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmn94')}', name:'pmn94', index:'a.pmn94', width:150, align:"left"},
+		{header:'${text('pmn95')}', name:'pmn95', index:'a.pmn95', width:150, align:"center"},
+		{header:'${text('pmn96')}', name:'pmn96', index:'a.pmn96', width:150, align:"left"},
+		{header:'${text('pmn97')}', name:'pmn97', index:'a.pmn97', width:150, align:"left"},
+		{header:'${text('pmn98')}', name:'pmn98', index:'a.pmn98', width:150, align:"left"},
+		{header:'${text('pmn91')}', name:'pmn91', index:'a.pmn91', width:150, align:"left"},
+		{header:'${text('pmnud01')}', name:'pmnud01', index:'a.pmnud01', width:150, align:"left"},
+		{header:'${text('pmnud02')}', name:'pmnud02', index:'a.pmnud02', width:150, align:"left"},
+		{header:'${text('pmnud03')}', name:'pmnud03', index:'a.pmnud03', width:150, align:"left"},
+		{header:'${text('pmnud04')}', name:'pmnud04', index:'a.pmnud04', width:150, align:"left"},
+		{header:'${text('pmnud05')}', name:'pmnud05', index:'a.pmnud05', width:150, align:"left"},
+		{header:'${text('pmnud06')}', name:'pmnud06', index:'a.pmnud06', width:150, align:"left"},
+		{header:'${text('pmnud07')}', name:'pmnud07', index:'a.pmnud07', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmnud08')}', name:'pmnud08', index:'a.pmnud08', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmnud09')}', name:'pmnud09', index:'a.pmnud09', width:150, align:"right", formatter: function(val, obj, row, act){
+			return js.formatNumber(val, 2, false, ''); // 数值类型格式化 (原始数值, 小数位数, 是否千分位, 默认值，金额情况下设置0.00);
+		}},
+		{header:'${text('pmnud10')}', name:'pmnud10', index:'a.pmnud10', width:150, align:"center"},
+		{header:'${text('pmnud11')}', name:'pmnud11', index:'a.pmnud11', width:150, align:"center"},
+		{header:'${text('pmnud12')}', name:'pmnud12', index:'a.pmnud12', width:150, align:"center"},
+		{header:'${text('pmnud13')}', name:'pmnud13', index:'a.pmnud13', width:150, align:"center"},
+		{header:'${text('pmnud14')}', name:'pmnud14', index:'a.pmnud14', width:150, align:"center"},
+		{header:'${text('pmnud15')}', name:'pmnud15', index:'a.pmnud15', width:150, align:"center"},
+		{header:'${text('pmn89')}', name:'pmn89', index:'a.pmn89', width:150, align:"left"},
+		{header:'${text('pmn72')}', name:'pmn72', index:'a.pmn72', width:150, align:"left"},
+		{header:'${text('pmn73')}', name:'pmn73', index:'a.pmn73', width:150, align:"left"},
+		{header:'${text('pmn74')}', name:'pmn74', index:'a.pmn74', width:150, align:"left"},
+		{header:'${text('pmn75')}', name:'pmn75', index:'a.pmn75', width:150, align:"left"},
+		{header:'${text('pmn76')}', name:'pmn76', index:'a.pmn76', width:150, align:"center"},
+		{header:'${text('pmn77')}', name:'pmn77', index:'a.pmn77', width:150, align:"left"},
+		{header:'${text('pmnplant')}', name:'pmnplant', index:'a.pmnplant', width:150, align:"left"},
+		{header:'${text('pmnlegal')}', name:'pmnlegal', index:'a.pmnlegal', width:150, align:"left"},
+		{header:'${text('pmn012')}', name:'pmn012', index:'a.pmn012', width:150, align:"left"},
+		{header:'${text('pmn919')}', name:'pmn919', index:'a.pmn919', width:150, align:"left"},
+		{header:'${text('pmn99')}', name:'pmn99', index:'a.pmn99', width:150, align:"left"},
+		{header:'${text('pmn78')}', name:'pmn78', index:'a.pmn78', width:150, align:"left"},
+		{header:'${text('create_date')}', name:'createDate', index:'a.create_date', width:150, align:"center"},
+		{header:'${text('remarks')}', name:'remarks', index:'a.remarks', width:150, align:"left"},
+		{header:'${text('del_flag')}', name:'delFlag', index:'a.del_flag', width:150, align:"left"},
+		{header:'${text('状态')}', name:'status', index:'a.status', width:150, align:"center", formatter: function(val, obj, row, act){
+			return js.getDictLabel(${@DictUtils.getDictListJson('sys_search_status')}, val, '${text('未知')}', true);
+		}},
+		{header:'${text('操作')}', name:'actions', width:120, sortable:false, title:false, formatter: function(val, obj, row, act){
+			var actions = [];
+			<% if(hasPermi('pmn:pmnFile:edit')){ %>
+				actions.push('<a href="${ctx}/pmn/pmnFile/form?pmn01='+row.pmn01+'" class="btnList" title="${text('编辑采购单单身')}"><i class="fa fa-pencil"></i></a>&nbsp;');
+				actions.push('<a href="${ctx}/pmn/pmnFile/delete?pmn01='+row.pmn01+'" class="btnList" title="${text('删除采购单单身')}" data-confirm="${text('确认要删除该采购单单身吗？')}"><i class="fa fa-trash-o"></i></a>&nbsp;');
+			<% } %>
+			return actions.join('');
+		}}
+	],
+	// 加载成功后执行事件
+	ajaxSuccess: function(data){
+		
+	}
+});
+</script>
